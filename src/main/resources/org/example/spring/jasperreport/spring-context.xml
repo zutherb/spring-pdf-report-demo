@@ -12,12 +12,16 @@
 
     <mvc:annotation-driven/>
 
-    <bean id="viewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
-        <property name="basename" value="views"/>
+    <!--
+	Resolves view names based on the names declared on the declared xml location
+	All our Jasper views are declared inside the specified xml location.
+	Take note of the ordering of this ViewResolver.
+	 -->
+	<bean class="org.springframework.web.servlet.view.XmlViewResolver">
+        <property name="location" value="classpath:org/example/spring/jasperreport/spring-jasper.xml" />
+        <property name="order" value="0" />
     </bean>
 
-    <bean id="pdfView" class="org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView">
-        <property name="url" value="classpath:org/example/spring/jasperreport/report/sample.jrxml"/>
-    </bean>
+    <import resource="spring-jasper.xml" />
 
 </beans>

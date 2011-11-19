@@ -26,7 +26,7 @@ public class JettyStart {
         }
         System.setProperty("catalina.base", ".");
 
-        Server server = createServer(args);
+        Server server = ServerFactory.createServer(args);
 
         try {
             jettyStartConsoleOutput(args[0]);
@@ -45,18 +45,10 @@ public class JettyStart {
 
     @Before
     public void startJetty() throws Exception {
-        Integer port = generateRandomPort();
-        server = createServer(new String[]{port.toString()});
-        jettyStartConsoleOutput(port.toString());
+        server = ServerFactory.createServerWithRandomPort();
         server.start();
     }
 
-    private Integer generateRandomPort() {
-        Random rn = new Random();
-        int n = 2*Short.MAX_VALUE - 9999;
-        int i = rn.nextInt() % n;
-        return 9999 + i;
-    }
 
     @Test
     public void testJettyStart() throws Exception {
@@ -69,22 +61,5 @@ public class JettyStart {
         server.stop();
     }
 
-    private static Server createServer(String[] args) {
-        Server server = new Server(Integer.parseInt(args[0]));
-        WebAppContext context = new WebAppContext();
-        context.setContextPath("/example");
-        context.setResourceBase("src/main/java/");
-        context.setDescriptor("src/main/webapp/WEB-INF/web.xml");
-        context.setParentLoaderPriority(true);
-        server.setHandler(context);
 
-        Ajp13SocketConnector ajpConnector = new Ajp13SocketConnector();
-        int ajpport = 8009;
-        if( args.length == 2){
-            ajpport = Integer.parseInt(args[1]);
-        }
-        ajpConnector.setPort(ajpport);
-        server.addConnector(ajpConnector);
-        return server;
-    }
 }

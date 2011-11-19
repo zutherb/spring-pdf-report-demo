@@ -1,11 +1,12 @@
 package org.example.spring.jasperreport.service.basket.apimodel;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 /**
  * @author Bernd Zuther <a href="mailto:bernd.zuther@me.com">bernd.zuther@me.com</a>
  */
-public class BasketItem {
+public class BasketItem implements Serializable{
 
     private UUID id;
     private String name;
