@@ -1,0 +1,8 @@
+.gradle/
+build/
+out/
+*.iml
+*.ipr
+*.iws
+sample.jasper
+sample.pdf

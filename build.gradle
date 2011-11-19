@@ -1,0 +1,82 @@
+defaultTasks "build"
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'jetty'
+apply plugin: 'project-reports'
+
+jettyVersion = '8.0.4.v20111024'
+springVersion = '3.0.5.RELEASE'
+jasperReportsVersion = '2.6.2'
+
+group = 'org.spring-birt-example'
+version = '0.1-DEV'
+
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
+sourceSets {
+	main {
+    	resources {
+        	srcDir 'src/main/resources'
+            srcDir 'src/main/java'
+		}
+    }
+    test {
+    	resources {
+        	srcDir 'src/test/resources'
+            srcDir 'src/test/java'
+        }
+	}
+}
+
+configurations {
+	compile.transitive = true
+    testCompile.transitive = true
+}
+
+repositories {
+	mavenCentral()
+    mavenRepo(url: 'http://maven.springframework.org/release')
+    mavenRepo(url: 'http://oss.sonatype.org/content/groups/sourceforge/')
+    mavenRepo(url: 'http://oss.sonatype.org/content/repositories/JBoss')
+    mavenRepo(url: 'http://maven.eclipse.org')
+}
+
+dependencies {
+    compile "org.codehaus.groovy:groovy-all:1.8.3"
+    compile "org.springframework:spring-core:$springVersion"
+    compile "org.springframework:spring-beans:$springVersion"
+	compile "org.springframework:spring-context:$springVersion"
+    compile "org.springframework:spring-context-support:$springVersion"
+    compile "org.springframework:spring-web:$springVersion"
+    compile "org.springframework:spring-webmvc:$springVersion"
+    compile "jasperreports:jasperreports:3.5.3"
+    compile "javax.servlet:javax.servlet-api:3.0.1"
+    testCompile "org.springframework:spring-test:$springVersion"
+    testCompile "junit:junit:4.10"
+    testCompile "org.eclipse.jetty:jetty-server:$jettyVersion"
+    testCompile "org.eclipse.jetty:jetty-ajp:$jettyVersion"
+    testCompile "org.eclipse.jetty:jetty-plus:$jettyVersion"
+    testCompile "org.eclipse.jetty:jetty-webapp:$jettyVersion"
+}
+
+task makeDirs(description: 'Initialize project') << { task ->
+    def defaultPackage = 'org/example/spring/jasperreorts/'
+
+    ['java', 'resources'].each {
+    	// convention.sourceSets contains the directory structure
+        // for our project. So we use this struture
+        // and make a directory for each node.
+        sourceSets.all*."${it}".srcDirs*.each{ dir ->
+        	def newDir = new File(dir, defaultPackage)
+            println "Creating directory $newDir"
+            newDir.mkdirs()  // Create dir.
+        }
+    }
+}
