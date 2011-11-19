@@ -23,7 +23,7 @@ import java.util.Map;
 /**
  * @author Bernd Zuther <a href="mailto:bernd.zuther@me.com">bernd.zuther@me.com</a>
  */
-@Controller("pdfGenerator")
+@Controller("japserPdfGenerator")
 public class PDFGenerator {
 
     @Autowired

@@ -1,4 +1,4 @@
-package org.example.spring.jasperreport.controller;
+package org.example.spring.generell.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
