@@ -25,4 +25,8 @@ public class BasketItem implements Serializable{
     public Double getTotal() {
         return total;
     }
+
+    public String getName() {
+        return name;
+    }
 }
