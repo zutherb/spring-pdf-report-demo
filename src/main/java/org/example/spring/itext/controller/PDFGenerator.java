@@ -1,17 +1,13 @@
 package org.example.spring.itext.controller;
 
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import org.example.spring.jasperreport.service.basket.api.Basket;
-import org.example.spring.jasperreport.service.cms.api.CmsRessource;
+
+import org.example.spring.generell.service.basket.api.Basket;
+import org.example.spring.generell.service.cms.api.CmsRessource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**
@@ -26,9 +22,14 @@ public class PDFGenerator {
     @Autowired
     CmsRessource cmsRessource;
 
-    @RequestMapping(value = "/itext-example.pdf", method = RequestMethod.GET)
+    @RequestMapping(value = "/itext-example1.pdf", method = RequestMethod.GET)
     public ModelAndView generateBasketPdf(){
         return new ModelAndView("itextBasketReport");
+    }
+
+    @RequestMapping(value = "/itext-example2.pdf", method = RequestMethod.GET)
+    public ModelAndView generateBasketPdfWithTemplate(){
+        return new ModelAndView("iTextBasketReportFromTemplate");
     }
 
 
